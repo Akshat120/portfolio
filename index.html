@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akshat Dhiman | Software Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #fcfcfc;
+      --surface-color: #ffffff;
+      --text-main: #111827;
+      --text-secondary: #4b5563;
+      --text-muted: #9ca3af;
+      --border-color: #e5e7eb;
+      --accent: #2563eb; /* Sleek corporate blue */
+      --accent-hover: #1d4ed8;
+      --success: #10b981;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* Hero Section */
+    .hero { 
+      margin-bottom: 60px; 
+    }
+    
+    .hero h1 { 
+      font-size: 3rem; 
+      font-weight: 800;
+      letter-spacing: -0.05em; 
+      line-height: 1.1; 
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+    
+    .hero-contact {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-contact span {
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-contact span:not(:last-child)::after {
+      content: '•';
+      margin-left: 12px;
+      color: var(--text-muted);
+    }
+    
+    .hero-summary {
+      font-size: 1.1rem; 
+      color: var(--text-secondary); 
+      font-weight: 400;
+      max-width: 100%;
+      line-height: 1.7;
+    }
+    
+    /* Section Formatting */
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin: 60px 0 30px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Cards & Entries */
+    .entry {
+      margin-bottom: 32px;
+    }
+    
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .entry h3 { 
+      font-size: 1.1rem; 
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    
+    .entry .date { 
+      font-size: 0.9rem; 
+      color: var(--text-muted); 
+      font-variant-numeric: tabular-nums;
+    }
+    
+    .entry h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .entry ul {
+      list-style-type: none;
+    }
+    
+    .entry ul li {
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+    
+    .entry ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Skills */
+    .skills-category {
+      margin-bottom: 24px;
+    }
+    
+    .skills-category h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .skill-tag {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .skill-tag:hover {
+      border-color: var(--text-muted);
+      color: var(--text-main);
+    }
+
+    /* Dynamic Projects Grid */
+    .api-status-container {
+      margin-bottom: 24px;
+    }
+
+    .backend-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: var(--text-secondary);
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    #projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .project-card {
+      background: var(--surface-color);
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    
+    .project-card:hover {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      border-color: #d1d5db;
+    }
+    
+    .project-card h3 { 
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    
+    .project-tech { 
+      font-size: 0.8rem; 
+      color: var(--text-muted); 
+      margin: 8px 0 12px; 
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    }
+    
+    .project-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 640px) {
+      .container { padding: 50px 20px; }
+      .hero h1 { font-size: 2.25rem; }
+      .entry-header { flex-direction: column; }
+      .entry .date { margin-top: 2px; }
+      #projects-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="hero">
+      <h1>Akshat Dhiman</h1>
+      <div class="hero-contact">
+        <span>Lucknow, UP, India</span>
+        <span><a href="mailto:akshat.dhiman15@gmail.com">akshat.dhiman15@gmail.com</a></span>
+        <span>+91 98393 00080</span>
+        <span><a href="https://github.com/Akshat120" target="_blank">github.com/Akshat120</a></span>
+      </div>
+      <p class="hero-summary">
+        Software Engineer with nearly 2 years of back-end experience, specializing in designing and developing scalable RESTful APIs and microservices using Golang and Ruby on Rails. Expertise in CI/CD pipelines, Data Structures, Algorithms, and Agile methodologies.
+      </p>
+    </header>
+
+    <section>
+      <h2 class="section-title">Experience</h2>
+      
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Software Engineer I</h3>
+          <span class="date">June 2025 – Sept 2025</span>
+        </div>
+        <h4>Tanla Platforms Ltd. | Hyderabad, India</h4>
+        <ul>
+          <li>Engineered comprehensive unit tests for Go-based microservices, attaining over 75% code coverage to boost reliability and maintain high-quality standards.</li>
+          <li>Designed a robust request payload validator utilizing Swagger specifications, guaranteeing data integrity and seamless validation before forwarding requests to downstream microservices.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Software Engineer I</h3>
+          <span class="date">July 2023 – March 2025</span>
+        </div>
+        <h4>Deliveroo | Hyderabad, India</h4>
+        <ul>
+          <li>Developed an operational tool on Ruby on Rails framework with geospatial APIs to hide restaurant partners in affected markets during outages, leveraging TDD.</li>
+          <li>Built a tool in Ruby on Rails framework using PostGIS queries and bounding box optimization to detect overlapping geospatial geometries, reducing data discrepancies by 80%.</li>
+          <li>Built a Golang CLI tool using AWS SDK to fetch S3 data and batch processing it into PostgreSQL Aurora DB, allowing on-demand regeneration of restaurant delivery areas.</li>
+          <li>Managed two Golang microservices to select nearby restaurants based on user location and hide restaurants in low-rider-capacity areas, ensuring 99.9% reliability.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Software Engineer Intern</h3>
+          <span class="date">May 2022 – July 2022</span>
+        </div>
+        <h4>Samsung Research Institute | Bangalore, India</h4>
+        <ul>
+          <li>Researched and analyzed digital image processing techniques to improve image quality and functionality for software applications.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Dynamic Projects Section -->
+    <section>
+      <h2 class="section-title">Projects</h2>
+      
+      <div class="api-status-container">
+        <div class="backend-status" id="api-status">
+          <div class="status-dot" style="background: #eab308;"></div>
+          <span>Connecting to Go API Backend...</span>
+        </div>
+      </div>
+      
+      <div id="projects-container">
+        <!-- Projects injected via JavaScript -->
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Education</h2>
+      <div class="entry" style="margin-bottom: 0;">
+        <div class="entry-header">
+          <h3>B.Tech. in Computer Science & Engineering</h3>
+          <span class="date">July 2019 – June 2023</span>
+        </div>
+        <h4>National Institute of Technology, Warangal | Telangana, India</h4>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Publications</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <h3>Efficient Real-Time Task-Based Scheduling Algorithms for IoT-Fog-Cloud Architecture</h3>
+          <span class="date">Nov 2023</span>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 6px;">Sanjaya Kumar Panda, Akshat Dhiman, Pushpraj Bhuriya</p>
+        <a href="https://ieeexplore.ieee.org/document/10306689" target="_blank" style="font-size: 0.9rem;">View IEEE Publication →</a>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>A Relative Weight-Based Fuzzy k-Nearest Neighbour Classifier for Chemical Analysis...</h3>
+          <span class="date">Nov 2023</span>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 6px;">Sanjaya Kumar Panda, Akshat Dhiman, Md. Sameer Khan</p>
+        <a href="https://ieeexplore.ieee.org/document/10306590" target="_blank" style="font-size: 0.9rem;">View IEEE Publication →</a>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Skills & Arsenal</h2>
+      <div class="skills-category">
+        <h4>Languages</h4>
+        <div class="skills-grid">
+          <span class="skill-tag">Golang</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Ruby</span>
+          <span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skills-category">
+        <h4>Frameworks & Tools</h4>
+        <div class="skills-grid">
+          <span class="skill-tag">Ruby on Rails</span>
+          <span class="skill-tag">RESTful APIs</span>
+          <span class="skill-tag">gRPC</span>
+          <span class="skill-tag">PostgreSQL / PostGIS</span>
+          <span class="skill-tag">Git / GitHub</span>
+          <span class="skill-tag">AWS S3</span>
+          <span class="skill-tag">CI/CD</span>
+          <span class="skill-tag">Agile / TDD</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Configuration for your future Go Backend
+    const API_CONFIG = {
+      // Change this to your actual production URL when deployed
+      endpoint: 'http://localhost:8080/api/projects' 
+    };
+
+    // Fallback Mock Data (Shown if the backend is down or not built yet)
+    const MOCK_PROJECTS = [
+      {
+        id: "1",
+        title: "Distributed Rate Limiter",
+        techStack: "Golang, Redis, gRPC",
+        description: "A high-performance token bucket rate limiter built in Go, designed to protect backend microservices from traffic spikes."
+      },
+      {
+        id: "2",
+        title: "Geo-Spatial Delivery Router",
+        techStack: "PostGIS, Ruby on Rails",
+        description: "An API that calculates the most efficient delivery polygons and detects overlapping service zones for restaurant logistics."
+      },
+      {
+        id: "3",
+        title: "Portfolio API Server",
+        techStack: "Golang, PostgreSQL, Docker",
+        description: "The custom backend service powering this very portfolio. Manages dynamic content injection and analytics tracking."
+      }
+    ];
+
+    async function fetchAndRenderProjects() {
+      const container = document.getElementById('projects-container');
+      const statusElement = document.getElementById('api-status');
+      
+      try {
+        const response = await fetch(API_CONFIG.endpoint, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          },
+          signal: AbortSignal.timeout(2000) 
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const projects = await response.json();
+        
+        statusElement.innerHTML = `<div class="status-dot" style="background: var(--success);"></div><span style="color: var(--success)">Live: Connected to Go API</span>`;
+        renderCards(projects, container);
+
+      } catch (error) {
+        console.log("Backend not detected, falling back to mock data:", error.message);
+        
+        statusElement.innerHTML = `<div class="status-dot" style="background: var(--text-muted);"></div><span style="color: var(--text-secondary)">Offline: Displaying Local Fallback Data</span>`;
+        
+        renderCards(MOCK_PROJECTS, container);
+      }
+    }
+
+    function renderCards(projectsData, containerElement) {
+      containerElement.innerHTML = ''; 
+      
+      projectsData.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+          <h3>${project.title}</h3>
+          <div class="project-tech">${project.techStack}</div>
+          <p>${project.description}</p>
+        `;
+        containerElement.appendChild(card);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchAndRenderProjects);
+  </script>
+</body>
+</html>
