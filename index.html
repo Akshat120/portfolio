@@ -292,68 +292,108 @@ const DATA = {
   tagline: "Go and microservices · geospatial systems · 2× IEEE-published",
 
   about: [
-    "Backend engineer working mainly in Go. Replace this paragraph with two or three sentences on what you actually build and what you're good at — the specific thing, not the adjectives.",
-    "One more line on what you're looking for or what you're working on now."
+    "Backend engineer with nearly two years of production experience at Deliveroo and Tanla Platforms, building Go microservices, geospatial APIs and the test suites that keep them at 99.9% reliability.",
+    "Computer Science graduate of NIT Warangal, two IEEE peer-reviewed publications. Based in Lucknow, India. Currently looking for a software developer role.",
+    "Most of my work sits where maps meet distributed systems: figuring out which restaurants are near you, which delivery zones are reachable in fifteen minutes, and which geometries overlap when they shouldn't."
   ],
 
   experience: [
     {
-      company: "Deliveroo",
-      role:    "Backend Software Engineer",
-      when:    "20XX — present",
+      company: "Tanla Platforms Limited",
+      role:    "Software Engineer I",
+      when:    "06/2025 — 09/2025 · Hyderabad",
       points: [
-        "Replace with what you owned, not what the team did.",
-        "One bullet with a number in it: latency, throughput, scale, cost.",
-        "One bullet on a decision you made and the reason behind it."
+        "Wrote the unit test suite for Go microservices, taking coverage past 75%.",
+        "Built a request payload validator driven by Swagger specifications, so malformed requests are rejected at the edge rather than by downstream services."
       ]
     },
     {
-      company: "Tanla Platforms",
-      role:    "Software Engineer",
-      when:    "20XX — 20XX",
+      company: "Deliveroo",
+      role:    "Software Engineer I",
+      when:    "07/2023 — 03/2025 · Hyderabad",
       points: [
-        "Same idea — specific systems, specific outcomes.",
-        "Two or three bullets is plenty per role."
+        "Owned two Go microservices: one selecting nearby restaurants by user location, one hiding restaurants in areas short on riders. Held 99.9% reliability, developed test-first.",
+        "Built a Ruby on Rails tool using PostGIS with bounding-box pre-filtering to find overlapping delivery geometries — cut data discrepancies by 80%.",
+        "Built an operational tool with geospatial APIs to hide restaurant partners in markets hit by outages, with TDD validating every upload.",
+        "Wrote a Go CLI on the AWS SDK that pulls S3 data and batch-loads it into PostgreSQL Aurora, so delivery areas can be regenerated on demand."
+      ]
+    },
+    {
+      company: "Samsung R&D Institute India",
+      role:    "Software Engineer Intern",
+      when:    "05/2022 — 07/2022 · Bangalore",
+      points: [
+        "Applied flash / no-flash image fusion research to improve brightness, noise and detail retention.",
+        "Ran the evaluation against baseline methods and documented the performance metrics."
       ]
     }
   ],
 
   projects: [
     {
-      name:  "project-name",
-      stack: "Go · PostGIS · Redis",
-      blurb: "What problem it solves, the interesting technical decision, and one number if you have one. Two lines maximum.",
-      link:  { label: "github.com/you/project", href: "#" }
+      name:  "isochrone-delivery-areas",
+      stack: "Python · OSMnx · NetworkX · Shapely",
+      blurb: "Generates time-based delivery areas from real OpenStreetMap road networks. Cost-bounded Dijkstra finds every point reachable within a time budget, then alpha shapes turn that point cloud into a concave polygon. Scooter, car, bike and walk profiles; GeoJSONL output; the core algorithms have offline tests.",
+      link:  { label: "github.com/Akshat120/isochrone-delivery-areas", href: "https://github.com/Akshat120/isochrone-delivery-areas" }
     },
     {
-      name:  "another-project",
-      stack: "Go · gRPC · Kafka",
-      blurb: "A live demo link is worth more here than any description. If you can deploy it, deploy it.",
-      link:  { label: "Live demo", href: "#" }
+      name:  "flash-noflash-image-fusion",
+      stack: "Python · NumPy · SciPy",
+      blurb: "The Petschnigg et al. (SIGGRAPH 2004) pipeline: a joint bilateral filter denoises the ambient frame guided by the flash frame, detail is transferred back, and flash shadows and blowouts are detected and replaced. Evaluated with PSNR, SSIM and Laplacian-variance sharpness against a synthetic ground truth.",
+      link:  { label: "github.com/Akshat120/Flash-NoFlash-Image-Fusion", href: "https://github.com/Akshat120/Flash-NoFlash-Image-Fusion" }
+    },
+    {
+      name:  "logic-gates-from-scratch",
+      stack: "Python · NumPy · Jupyter",
+      blurb: "Single-layer perceptrons from first principles across three notebooks: scalar loops, then vectorised NumPy matrices, then 3-input truth tables.",
+      link:  { label: "github.com/Akshat120/logic-gates-from-scratch", href: "https://github.com/Akshat120/logic-gates-from-scratch" }
     }
   ],
 
   publications: [
-    { title: "Paper title here", venue: "IEEE · 20XX", href: "#" },
-    { title: "Second paper title", venue: "IEEE · 20XX", href: "#" }
+    { title: "Efficient Real-Time Task-Based Scheduling Algorithms for IoT-Fog-Cloud Architecture", venue: "IEEE · 11/2023", href: "#" },
+    { title: "A Relative Weight-Based Fuzzy k-Nearest Neighbour Classifier for Chemical Analysis of Wine and Glass Identification", venue: "IEEE · 11/2023", href: "#" }
+  ],
+
+  education: [
+    {
+      school: "National Institute of Technology, Warangal",
+      award:  "B.Tech, Computer Science & Engineering",
+      when:   "2019 — 2023",
+      note:   "Algorithms, Operating Systems, Databases, Machine Learning, Cloud Computing. CGPA 7.24/10."
+    },
+    {
+      school: "Cathedral Sr. Sec. School, Lucknow",
+      award:  "Higher Secondary",
+      when:   "2018",
+      note:   "93%."
+    }
   ],
 
   skills: {
-    "Languages":  "Go, Python, SQL, TypeScript",
-    "Systems":    "gRPC, Kafka, PostgreSQL, PostGIS, Redis",
-    "Infra":      "Docker, Kubernetes, Terraform, AWS",
-    "Practices":  "Distributed tracing, load testing, CI/CD"
+    "Languages":      "Go, C++, Ruby, Python, SQL",
+    "Backend":        "Microservices, gRPC, REST, Ruby on Rails, Swagger, TDD",
+    "Data":           "PostgreSQL Aurora, PostGIS, batch processing",
+    "Cloud, tooling": "AWS S3 and SDK, CI/CD, Git, Jira, on-call rota"
   },
 
+  achievements: [
+    "Leetcode rating 1679 (max), top 15.16%",
+    "JEE 98.96 percentile, National Testing Agency",
+    "Event organiser, Spring Spree, NIT Warangal",
+    "English IELTS Band 7.0 · Hindi native"
+  ],
+
   contact: [
-    { label: "email",    value: "you@example.com",           href: "mailto:you@example.com" },
-    { label: "github",   value: "github.com/yourhandle",     href: "#" },
-    { label: "linkedin", value: "linkedin.com/in/yourhandle",href: "#" },
-    { label: "resume",   value: "resume.pdf",                href: "#" }
+    { label: "email",    value: "akshat.dhiman15@gmail.com",        href: "mailto:akshat.dhiman15@gmail.com" },
+    { label: "github",   value: "github.com/Akshat120",             href: "https://github.com/Akshat120" },
+    { label: "linkedin", value: "linkedin.com/in/akshatdhiman",     href: "https://linkedin.com/in/akshatdhiman" },
+    { label: "location", value: "Lucknow, India",                   href: "#" },
+    { label: "resume",   value: "resume.pdf",                       href: "resume.pdf" }
   ]
 };
 
-const COMMANDS = ["about","experience","projects","publications","skills","contact","resume","help","clear"];
+const COMMANDS = ["about","experience","projects","publications","education","skills","achievements","contact","resume","clear"];
 
 /* ==========================================================
    2. Rendering — turns DATA into terminal output.
@@ -394,6 +434,18 @@ const render = {
     return `<h2>publications</h2><ul>` + DATA.publications.map(p=>
       `<li><a href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.title)}</a> <span class="meta">— ${esc(p.venue)}</span></li>`
     ).join("") + `</ul>`;
+  },
+
+  education(){
+    return `<h2>education</h2>` + DATA.education.map(e=>`
+      <div class="job">
+        <div class="head"><span class="co">${esc(e.school)}</span> <span class="when">(${esc(e.when)})</span></div>
+        <p>${esc(e.award)}<br><span class="meta">${esc(e.note)}</span></p>
+      </div>`).join("");
+  },
+
+  achievements(){
+    return `<h2>achievements</h2><ul>` + DATA.achievements.map(a=>`<li>${esc(a)}</li>`).join("") + `</ul>`;
   },
 
   skills(){
@@ -564,6 +616,15 @@ document.getElementById("page").innerHTML = `
 
   <section><h2>Skills</h2><ul>${Object.entries(DATA.skills).map(([k,v])=>
     `<li><strong>${esc(k)}</strong> — ${esc(v)}</li>`).join("")}</ul></section>
+
+  <section><h2>Education</h2>${DATA.education.map(e=>`
+    <div class="job">
+      <p><strong>${esc(e.school)}</strong> <span style="color:var(--dim)">(${esc(e.when)})</span></p>
+      <p>${esc(e.award)}<br><span style="color:var(--dim)">${esc(e.note)}</span></p>
+    </div>`).join("")}</section>
+
+  <section><h2>Achievements</h2><ul>${DATA.achievements.map(a=>
+    `<li>${esc(a)}</li>`).join("")}</ul></section>
 
   <section><h2>Contact</h2><ul>${DATA.contact.map(c=>
     `<li>${esc(c.label)} — <a href="${esc(c.href)}" target="_blank" rel="noopener">${esc(c.value)}</a></li>`
