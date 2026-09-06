@@ -1,480 +1,583 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akshat Dhiman | Software Engineer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-color: #fcfcfc;
-      --surface-color: #ffffff;
-      --text-main: #111827;
-      --text-secondary: #4b5563;
-      --text-muted: #9ca3af;
-      --border-color: #e5e7eb;
-      --accent: #2563eb; /* Sleek corporate blue */
-      --accent-hover: #1d4ed8;
-      --success: #10b981;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akshat Dhiman — Backend Engineer</title>
+<meta name="description" content="Interactive terminal portfolio of Akshat Dhiman, backend software engineer working in Go, microservices and geospatial systems.">
 
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
-    }
+<!-- ============================================================
+     EDIT YOUR CONTENT IN THE `DATA` OBJECT NEAR THE BOTTOM.
+     Everything on the page renders from it, in both the terminal
+     view and the plain-page view. You should not need to touch
+     the CSS or the command logic to change what the site says.
+     ============================================================ -->
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-    .container {
-      max-width: 840px;
-      margin: 0 auto;
-      padding: 80px 24px;
-    }
+<style>
+:root{
+  --field:      #1b2027;   /* page behind the window   */
+  --shell:      #0e1216;   /* terminal background      */
+  --edge:       #2a323c;   /* window border            */
+  --ink:        #c6cfd8;   /* body text                */
+  --dim:        #5f6b78;   /* secondary text           */
+  --amber:      #e0a340;   /* prompt, key accent       */
+  --steel:      #7ea9c4;   /* paths, links             */
+  --sage:       #93b89a;   /* headings inside output   */
+  --rose:       #c98b8b;   /* errors                   */
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    
-    a:hover {
-      color: var(--accent-hover);
-      text-decoration: underline;
-    }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
 
-    /* Hero Section */
-    .hero { 
-      margin-bottom: 60px; 
-    }
-    
-    .hero h1 { 
-      font-size: 3rem; 
-      font-weight: 800;
-      letter-spacing: -0.05em; 
-      line-height: 1.1; 
-      margin-bottom: 12px;
-      color: var(--text-main);
-    }
-    
-    .hero-contact {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--field);
+  background-image:radial-gradient(120% 90% at 50% 0%, #232a33 0%, #1b2027 55%, #161b21 100%);
+  color:var(--ink);
+  font:400 15px/1.65 var(--mono);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px 20px;
+}
 
-    .hero-contact span {
-      display: flex;
-      align-items: center;
-    }
+/* ---------- window ---------- */
 
-    .hero-contact span:not(:last-child)::after {
-      content: '•';
-      margin-left: 12px;
-      color: var(--text-muted);
-    }
-    
-    .hero-summary {
-      font-size: 1.1rem; 
-      color: var(--text-secondary); 
-      font-weight: 400;
-      max-width: 100%;
-      line-height: 1.7;
-    }
-    
-    /* Section Formatting */
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-main);
-      margin: 60px 0 30px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-color);
-    }
+.window{
+  width:100%;
+  max-width:880px;
+  height:min(78vh, 680px);
+  display:flex;
+  flex-direction:column;
+  background:var(--shell);
+  border:1px solid var(--edge);
+  border-radius:7px;
+  overflow:hidden;
+  box-shadow:0 24px 60px -20px rgba(0,0,0,.65), 0 2px 0 rgba(255,255,255,.03) inset;
+}
 
-    /* Cards & Entries */
-    .entry {
-      margin-bottom: 32px;
-    }
-    
-    .entry-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 4px;
-      flex-wrap: wrap;
-    }
+.titlebar{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 12px;
+  height:38px;
+  background:#171d24;
+  border-bottom:1px solid var(--edge);
+}
 
-    .entry h3 { 
-      font-size: 1.1rem; 
-      font-weight: 600;
-      color: var(--text-main);
-    }
-    
-    .entry .date { 
-      font-size: 0.9rem; 
-      color: var(--text-muted); 
-      font-variant-numeric: tabular-nums;
-    }
-    
-    .entry h4 {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-    }
+.dots{display:flex;gap:7px;flex:0 0 auto}
+.dot{width:11px;height:11px;border-radius:50%;background:#333c46}
+.dot:first-child{background:#48525d}
 
-    .entry ul {
-      list-style-type: none;
-    }
-    
-    .entry ul li {
-      margin-bottom: 8px;
-      position: relative;
-      padding-left: 18px;
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-    }
-    
-    .entry ul li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
+.titlebar h1{
+  flex:1 1 auto;
+  margin:0;
+  font-size:12.5px;
+  font-weight:500;
+  color:var(--dim);
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 
-    /* Skills */
-    .skills-category {
-      margin-bottom: 24px;
-    }
-    
-    .skills-category h4 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 12px;
-    }
-    
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    
-    .skill-tag {
-      background: var(--surface-color);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-    
-    .skill-tag:hover {
-      border-color: var(--text-muted);
-      color: var(--text-main);
-    }
+.viewswap{
+  flex:0 0 auto;
+  font:500 12px/1 var(--mono);
+  color:var(--dim);
+  background:none;
+  border:1px solid var(--edge);
+  border-radius:4px;
+  padding:6px 9px;
+  cursor:pointer;
+}
+.viewswap:hover{color:var(--ink);border-color:#3b4550}
 
-    /* Dynamic Projects Grid */
-    .api-status-container {
-      margin-bottom: 24px;
-    }
+/* ---------- terminal body ---------- */
 
-    .backend-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      background: var(--surface-color);
-      border: 1px solid var(--border-color);
-      padding: 6px 12px;
-      border-radius: 6px;
-      color: var(--text-secondary);
-    }
-    
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
+.screen{
+  flex:1 1 auto;
+  overflow-y:auto;
+  padding:20px 20px 4px;
+  scrollbar-width:thin;
+  scrollbar-color:#2f3841 transparent;
+}
+.screen::-webkit-scrollbar{width:9px}
+.screen::-webkit-scrollbar-thumb{background:#2f3841;border-radius:9px}
 
-    #projects-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-    
-    .project-card {
-      background: var(--surface-color);
-      padding: 24px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      transition: box-shadow 0.2s ease, border-color 0.2s ease;
-    }
-    
-    .project-card:hover {
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-      border-color: #d1d5db;
-    }
-    
-    .project-card h3 { 
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-    
-    .project-tech { 
-      font-size: 0.8rem; 
-      color: var(--text-muted); 
-      margin: 8px 0 12px; 
-      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-    }
-    
-    .project-card p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      flex-grow: 1;
-      line-height: 1.5;
-    }
+.boot{color:var(--dim);margin-bottom:18px}
+.boot .host{color:var(--sage)}
+.boot .name{color:var(--ink)}
 
-    /* Responsive Design */
-    @media (max-width: 640px) {
-      .container { padding: 50px 20px; }
-      .hero h1 { font-size: 2.25rem; }
-      .entry-header { flex-direction: column; }
-      .entry .date { margin-top: 2px; }
-      #projects-container { grid-template-columns: 1fr; }
-    }
-  </style>
+.entry{margin:0 0 16px}
+.echo{color:var(--dim);margin-bottom:6px}
+.echo .cmd{color:var(--ink)}
+
+.out h2{
+  margin:0 0 8px;
+  font-size:15px;
+  font-weight:600;
+  color:var(--sage);
+}
+.out p{margin:0 0 10px;max-width:68ch}
+.out ul{margin:0 0 10px;padding-left:0;list-style:none}
+.out li{padding-left:18px;position:relative;margin-bottom:4px;max-width:68ch}
+.out li::before{content:"·";position:absolute;left:6px;color:var(--dim)}
+.out a{color:var(--steel);text-underline-offset:3px}
+.out a:hover{color:var(--amber)}
+.out .meta{color:var(--dim)}
+.out .err{color:var(--rose)}
+
+.job{margin-bottom:16px}
+.job .head{color:var(--ink);font-weight:500}
+.job .co{color:var(--amber)}
+.job .when{color:var(--dim);font-weight:400}
+
+.proj{margin-bottom:16px}
+.proj .head{color:var(--amber);font-weight:500}
+.proj .stack{color:var(--dim)}
+
+.grid{display:grid;grid-template-columns:auto 1fr;gap:3px 22px;max-width:68ch}
+.grid dt{color:var(--dim)}
+.grid dd{margin:0}
+
+/* command chips — makes it usable on a phone, where nobody types */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.chip{
+  font:400 13.5px/1 var(--mono);
+  color:var(--steel);
+  background:#151b21;
+  border:1px solid var(--edge);
+  border-radius:4px;
+  padding:7px 10px;
+  cursor:pointer;
+}
+.chip:hover{border-color:var(--steel);color:var(--ink)}
+
+/* ---------- input line ---------- */
+
+.inputline{
+  flex:0 0 auto;
+  display:flex;
+  align-items:baseline;
+  gap:9px;
+  padding:12px 20px 18px;
+  background:var(--shell);
+  cursor:text;
+}
+.prompt{flex:0 0 auto;white-space:nowrap}
+.prompt .u{color:var(--amber)}
+.prompt .p{color:var(--steel)}
+.prompt .s{color:var(--dim)}
+
+.field{position:relative;flex:1 1 auto;min-width:0}
+.mirror{white-space:pre;overflow:hidden}
+#typed{color:var(--ink)}
+.caret{
+  display:inline-block;
+  width:8.4px;
+  height:1.05em;
+  background:var(--amber);
+  vertical-align:text-bottom;
+  animation:blink 1.1s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+
+#cmd{
+  position:absolute;
+  inset:0;
+  width:100%;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:transparent;
+  caret-color:transparent;
+  font:inherit;
+  outline:none;
+}
+#cmd:focus-visible + .mirror .caret{outline:none}
+
+/* ---------- plain document view ---------- */
+
+.page{display:none;width:100%;max-width:720px}
+body.plainview{display:block;padding:0}
+body.plainview .window{display:none}
+body.plainview .page{display:block;margin:0 auto;padding:56px 24px 96px}
+
+.page .back{
+  font:500 13px/1 var(--mono);
+  color:var(--dim);
+  background:none;
+  border:1px solid var(--edge);
+  border-radius:4px;
+  padding:8px 11px;
+  cursor:pointer;
+  margin-bottom:36px;
+}
+.page .back:hover{color:var(--ink);border-color:#3b4550}
+
+.page h1{font-size:26px;font-weight:600;margin:0 0 4px;color:#e6ecf2}
+.page .sub{color:var(--dim);margin:0 0 34px}
+.page section{margin-bottom:34px}
+.page h2{
+  font-size:13px;font-weight:600;color:var(--amber);
+  margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid var(--edge);
+}
+.page p{margin:0 0 10px;max-width:66ch}
+.page ul{margin:0 0 10px;padding-left:18px}
+.page li{margin-bottom:4px;max-width:66ch}
+.page a{color:var(--steel)}
+.page .job,.page .proj{margin-bottom:20px}
+
+/* ---------- responsive ---------- */
+
+@media (max-width:640px){
+  body{padding:0;align-items:stretch}
+  .window{max-width:none;height:100vh;height:100dvh;border:0;border-radius:0}
+  .screen{padding:16px 15px 4px}
+  .inputline{padding:10px 15px 16px}
+  .titlebar h1{display:none}
+  .grid{grid-template-columns:1fr;gap:0 0}
+  .grid dt{margin-top:8px}
+  body.plainview .page{padding:32px 18px 72px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .caret{animation:none}
+}
+</style>
 </head>
+
 <body>
 
-  <div class="container">
-    <header class="hero">
-      <h1>Akshat Dhiman</h1>
-      <div class="hero-contact">
-        <span>Lucknow, UP, India</span>
-        <span><a href="mailto:akshat.dhiman15@gmail.com">akshat.dhiman15@gmail.com</a></span>
-        <span>+91 98393 00080</span>
-        <span><a href="https://github.com/Akshat120" target="_blank">github.com/Akshat120</a></span>
-      </div>
-      <p class="hero-summary">
-        Software Engineer with nearly 2 years of back-end experience, specializing in designing and developing scalable RESTful APIs and microservices using Golang and Ruby on Rails. Expertise in CI/CD pipelines, Data Structures, Algorithms, and Agile methodologies.
-      </p>
-    </header>
-
-    <section>
-      <h2 class="section-title">Experience</h2>
-      
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Software Engineer I</h3>
-          <span class="date">June 2025 – Sept 2025</span>
-        </div>
-        <h4>Tanla Platforms Ltd. | Hyderabad, India</h4>
-        <ul>
-          <li>Engineered comprehensive unit tests for Go-based microservices, attaining over 75% code coverage to boost reliability and maintain high-quality standards.</li>
-          <li>Designed a robust request payload validator utilizing Swagger specifications, guaranteeing data integrity and seamless validation before forwarding requests to downstream microservices.</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Software Engineer I</h3>
-          <span class="date">July 2023 – March 2025</span>
-        </div>
-        <h4>Deliveroo | Hyderabad, India</h4>
-        <ul>
-          <li>Developed an operational tool on Ruby on Rails framework with geospatial APIs to hide restaurant partners in affected markets during outages, leveraging TDD.</li>
-          <li>Built a tool in Ruby on Rails framework using PostGIS queries and bounding box optimization to detect overlapping geospatial geometries, reducing data discrepancies by 80%.</li>
-          <li>Built a Golang CLI tool using AWS SDK to fetch S3 data and batch processing it into PostgreSQL Aurora DB, allowing on-demand regeneration of restaurant delivery areas.</li>
-          <li>Managed two Golang microservices to select nearby restaurants based on user location and hide restaurants in low-rider-capacity areas, ensuring 99.9% reliability.</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Software Engineer Intern</h3>
-          <span class="date">May 2022 – July 2022</span>
-        </div>
-        <h4>Samsung Research Institute | Bangalore, India</h4>
-        <ul>
-          <li>Researched and analyzed digital image processing techniques to improve image quality and functionality for software applications.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Dynamic Projects Section -->
-    <section>
-      <h2 class="section-title">Projects</h2>
-      
-      <div class="api-status-container">
-        <div class="backend-status" id="api-status">
-          <div class="status-dot" style="background: #eab308;"></div>
-          <span>Connecting to Go API Backend...</span>
-        </div>
-      </div>
-      
-      <div id="projects-container">
-        <!-- Projects injected via JavaScript -->
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Education</h2>
-      <div class="entry" style="margin-bottom: 0;">
-        <div class="entry-header">
-          <h3>B.Tech. in Computer Science & Engineering</h3>
-          <span class="date">July 2019 – June 2023</span>
-        </div>
-        <h4>National Institute of Technology, Warangal | Telangana, India</h4>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Publications</h2>
-      <div class="entry">
-        <div class="entry-header">
-          <h3>Efficient Real-Time Task-Based Scheduling Algorithms for IoT-Fog-Cloud Architecture</h3>
-          <span class="date">Nov 2023</span>
-        </div>
-        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 6px;">Sanjaya Kumar Panda, Akshat Dhiman, Pushpraj Bhuriya</p>
-        <a href="https://ieeexplore.ieee.org/document/10306689" target="_blank" style="font-size: 0.9rem;">View IEEE Publication →</a>
-      </div>
-
-      <div class="entry">
-        <div class="entry-header">
-          <h3>A Relative Weight-Based Fuzzy k-Nearest Neighbour Classifier for Chemical Analysis...</h3>
-          <span class="date">Nov 2023</span>
-        </div>
-        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 6px;">Sanjaya Kumar Panda, Akshat Dhiman, Md. Sameer Khan</p>
-        <a href="https://ieeexplore.ieee.org/document/10306590" target="_blank" style="font-size: 0.9rem;">View IEEE Publication →</a>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Skills & Arsenal</h2>
-      <div class="skills-category">
-        <h4>Languages</h4>
-        <div class="skills-grid">
-          <span class="skill-tag">Golang</span>
-          <span class="skill-tag">C++</span>
-          <span class="skill-tag">Ruby</span>
-          <span class="skill-tag">SQL</span>
-        </div>
-      </div>
-      <div class="skills-category">
-        <h4>Frameworks & Tools</h4>
-        <div class="skills-grid">
-          <span class="skill-tag">Ruby on Rails</span>
-          <span class="skill-tag">RESTful APIs</span>
-          <span class="skill-tag">gRPC</span>
-          <span class="skill-tag">PostgreSQL / PostGIS</span>
-          <span class="skill-tag">Git / GitHub</span>
-          <span class="skill-tag">AWS S3</span>
-          <span class="skill-tag">CI/CD</span>
-          <span class="skill-tag">Agile / TDD</span>
-        </div>
-      </div>
-    </section>
-
+<main class="window" id="window">
+  <div class="titlebar">
+    <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <h1>visitor@akshat — dhiman.sh</h1>
+    <button class="viewswap" id="toPage">Read as a page</button>
   </div>
 
-  <script>
-    // Configuration for your future Go Backend
-    const API_CONFIG = {
-      // Change this to your actual production URL when deployed
-      endpoint: 'http://localhost:8080/api/projects' 
-    };
+  <div class="screen" id="screen">
+    <div class="boot" id="boot"></div>
+    <div id="log"></div>
+  </div>
 
-    // Fallback Mock Data (Shown if the backend is down or not built yet)
-    const MOCK_PROJECTS = [
-      {
-        id: "1",
-        title: "Alpinism(MCQ Master)",
-        techStack: "EJS, Javascript and Firebase",
-        description: "This project is made solely for education purpose, where admin can able to push mcqs and students can able to attempt is"
-      },
-      {
-        id: "2",
-        title: "Geo-Spatial Delivery Router",
-        techStack: "PostGIS, Ruby on Rails",
-        description: "An API that calculates the most efficient delivery polygons and detects overlapping service zones for restaurant logistics."
-      },
-      {
-        id: "3",
-        title: "Portfolio API Server",
-        techStack: "Golang, PostgreSQL, Docker",
-        description: "The custom backend service powering this very portfolio. Manages dynamic content injection and analytics tracking."
-      }
-    ];
+  <div class="inputline" id="inputline">
+    <span class="prompt"><span class="u">visitor@akshat</span><span class="s">:</span><span class="p">~</span><span class="s">$</span></span>
+    <span class="field">
+      <input id="cmd" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Type a command">
+      <span class="mirror"><span id="typed"></span><span class="caret"></span></span>
+    </span>
+  </div>
+</main>
 
-    async function fetchAndRenderProjects() {
-      const container = document.getElementById('projects-container');
-      const statusElement = document.getElementById('api-status');
-      
-      try {
-        const response = await fetch(API_CONFIG.endpoint, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          },
-          signal: AbortSignal.timeout(2000) 
-        });
+<div class="page" id="page"></div>
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+<script>
+/* ==========================================================
+   1. YOUR CONTENT — this is the only part you need to edit.
+   ========================================================== */
 
-        const projects = await response.json();
-        
-        statusElement.innerHTML = `<div class="status-dot" style="background: var(--success);"></div><span style="color: var(--success)">Live: Connected to Go API</span>`;
-        renderCards(projects, container);
+const DATA = {
+  name:    "Akshat Dhiman",
+  role:    "Backend Software Engineer",
+  tagline: "Go and microservices · geospatial systems · 2× IEEE-published",
 
-      } catch (error) {
-        console.log("Backend not detected, falling back to mock data:", error.message);
-        
-        statusElement.innerHTML = `<div class="status-dot" style="background: var(--text-muted);"></div><span style="color: var(--text-secondary)">Offline: Displaying Local Fallback Data</span>`;
-        
-        renderCards(MOCK_PROJECTS, container);
-      }
+  about: [
+    "Backend engineer working mainly in Go. Replace this paragraph with two or three sentences on what you actually build and what you're good at — the specific thing, not the adjectives.",
+    "One more line on what you're looking for or what you're working on now."
+  ],
+
+  experience: [
+    {
+      company: "Deliveroo",
+      role:    "Backend Software Engineer",
+      when:    "20XX — present",
+      points: [
+        "Replace with what you owned, not what the team did.",
+        "One bullet with a number in it: latency, throughput, scale, cost.",
+        "One bullet on a decision you made and the reason behind it."
+      ]
+    },
+    {
+      company: "Tanla Platforms",
+      role:    "Software Engineer",
+      when:    "20XX — 20XX",
+      points: [
+        "Same idea — specific systems, specific outcomes.",
+        "Two or three bullets is plenty per role."
+      ]
     }
+  ],
 
-    function renderCards(projectsData, containerElement) {
-      containerElement.innerHTML = ''; 
-      
-      projectsData.forEach(project => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        card.innerHTML = `
-          <h3>${project.title}</h3>
-          <div class="project-tech">${project.techStack}</div>
-          <p>${project.description}</p>
-        `;
-        containerElement.appendChild(card);
-      });
+  projects: [
+    {
+      name:  "project-name",
+      stack: "Go · PostGIS · Redis",
+      blurb: "What problem it solves, the interesting technical decision, and one number if you have one. Two lines maximum.",
+      link:  { label: "github.com/you/project", href: "#" }
+    },
+    {
+      name:  "another-project",
+      stack: "Go · gRPC · Kafka",
+      blurb: "A live demo link is worth more here than any description. If you can deploy it, deploy it.",
+      link:  { label: "Live demo", href: "#" }
     }
+  ],
 
-    document.addEventListener('DOMContentLoaded', fetchAndRenderProjects);
-  </script>
+  publications: [
+    { title: "Paper title here", venue: "IEEE · 20XX", href: "#" },
+    { title: "Second paper title", venue: "IEEE · 20XX", href: "#" }
+  ],
+
+  skills: {
+    "Languages":  "Go, Python, SQL, TypeScript",
+    "Systems":    "gRPC, Kafka, PostgreSQL, PostGIS, Redis",
+    "Infra":      "Docker, Kubernetes, Terraform, AWS",
+    "Practices":  "Distributed tracing, load testing, CI/CD"
+  },
+
+  contact: [
+    { label: "email",    value: "you@example.com",           href: "mailto:you@example.com" },
+    { label: "github",   value: "github.com/yourhandle",     href: "#" },
+    { label: "linkedin", value: "linkedin.com/in/yourhandle",href: "#" },
+    { label: "resume",   value: "resume.pdf",                href: "#" }
+  ]
+};
+
+const COMMANDS = ["about","experience","projects","publications","skills","contact","resume","help","clear"];
+
+/* ==========================================================
+   2. Rendering — turns DATA into terminal output.
+   ========================================================== */
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const chips = list => `<div class="chips">${list.map(c=>`<button class="chip" data-run="${c}">${c}</button>`).join("")}</div>`;
+
+const render = {
+  help(){
+    return `<p>Available commands — type one, or tap:</p>${chips(COMMANDS)}
+      <p class="meta" style="margin-top:12px">↑ / ↓ for history, Tab to autocomplete.</p>`;
+  },
+
+  about(){
+    return `<h2>${esc(DATA.name)} — ${esc(DATA.role)}</h2>
+      ${DATA.about.map(p=>`<p>${esc(p)}</p>`).join("")}`;
+  },
+
+  experience(){
+    return `<h2>experience</h2>` + DATA.experience.map(j=>`
+      <div class="job">
+        <div class="head"><span class="co">${esc(j.company)}</span> — ${esc(j.role)} <span class="when">(${esc(j.when)})</span></div>
+        <ul>${j.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+      </div>`).join("");
+  },
+
+  projects(){
+    return `<h2>projects</h2>` + DATA.projects.map(p=>`
+      <div class="proj">
+        <div class="head">${esc(p.name)} <span class="stack">— ${esc(p.stack)}</span></div>
+        <p>${esc(p.blurb)}</p>
+        <p><a href="${esc(p.link.href)}" target="_blank" rel="noopener">${esc(p.link.label)}</a></p>
+      </div>`).join("");
+  },
+
+  publications(){
+    return `<h2>publications</h2><ul>` + DATA.publications.map(p=>
+      `<li><a href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.title)}</a> <span class="meta">— ${esc(p.venue)}</span></li>`
+    ).join("") + `</ul>`;
+  },
+
+  skills(){
+    return `<h2>skills</h2><dl class="grid">` + Object.entries(DATA.skills).map(([k,v])=>
+      `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`
+    ).join("") + `</dl>`;
+  },
+
+  contact(){
+    return `<h2>contact</h2><dl class="grid">` + DATA.contact.map(c=>
+      `<dt>${esc(c.label)}</dt><dd><a href="${esc(c.href)}" target="_blank" rel="noopener">${esc(c.value)}</a></dd>`
+    ).join("") + `</dl>`;
+  },
+
+  resume(){
+    const r = DATA.contact.find(c=>c.label==="resume");
+    return `<p>Opening <a href="${esc(r?r.href:"#")}" target="_blank" rel="noopener">${esc(r?r.value:"resume.pdf")}</a> — or read everything on one page with the button above.</p>`;
+  },
+
+  sudo(){
+    return `<p class="meta">visitor is not in the sudoers file. This incident has been logged.</p>`;
+  },
+
+  unknown(c){
+    const near = COMMANDS.find(x=>x.startsWith(c[0]));
+    return `<p class="err">command not found: ${esc(c)}</p>
+      <p class="meta">Try <span style="color:var(--steel)">help</span>${near?` — did you mean <span style="color:var(--steel)">${near}</span>?`:""}</p>`;
+  }
+};
+
+/* ==========================================================
+   3. Terminal behaviour.
+   ========================================================== */
+
+const screen = document.getElementById("screen");
+const log    = document.getElementById("log");
+const input  = document.getElementById("cmd");
+const typed  = document.getElementById("typed");
+const history = [];
+let hIndex = 0;
+
+function run(raw){
+  const cmd = raw.trim().toLowerCase();
+  const entry = document.createElement("div");
+  entry.className = "entry";
+
+  if(cmd === "clear"){ log.innerHTML = ""; return; }
+
+  let body;
+  if(!cmd)                       body = "";
+  else if(render[cmd])           body = render[cmd]();
+  else                           body = render.unknown(cmd);
+
+  entry.innerHTML =
+    `<div class="echo"><span style="color:var(--amber)">visitor@akshat</span><span style="color:var(--dim)">:</span><span style="color:var(--steel)">~</span><span style="color:var(--dim)">$</span> <span class="cmd">${esc(raw)}</span></div>` +
+    (body ? `<div class="out">${body}</div>` : "");
+
+  log.appendChild(entry);
+  screen.scrollTop = screen.scrollHeight;
+}
+
+input.addEventListener("input", () => { typed.textContent = input.value; });
+
+input.addEventListener("keydown", e => {
+  if(e.key === "Enter"){
+    const v = input.value;
+    if(v.trim()){ history.push(v); hIndex = history.length; }
+    run(v);
+    input.value = ""; typed.textContent = "";
+  }
+  else if(e.key === "ArrowUp"){
+    e.preventDefault();
+    if(hIndex > 0){ hIndex--; input.value = history[hIndex]; typed.textContent = input.value; }
+  }
+  else if(e.key === "ArrowDown"){
+    e.preventDefault();
+    if(hIndex < history.length - 1){ hIndex++; input.value = history[hIndex]; }
+    else { hIndex = history.length; input.value = ""; }
+    typed.textContent = input.value;
+  }
+  else if(e.key === "Tab"){
+    e.preventDefault();
+    const m = COMMANDS.find(c => c.startsWith(input.value.trim().toLowerCase()));
+    if(m && input.value.trim()){ input.value = m; typed.textContent = m; }
+  }
+});
+
+// tapping a chip runs that command
+document.addEventListener("click", e => {
+  const chip = e.target.closest("[data-run]");
+  if(chip){ run(chip.dataset.run); input.focus(); }
+});
+
+// clicking anywhere in the shell focuses the input (desktop only —
+// on mobile this would pop the keyboard up every time you scroll)
+document.getElementById("inputline").addEventListener("click", () => input.focus());
+if(window.matchMedia("(min-width:641px)").matches){
+  screen.addEventListener("click", () => {
+    if(!window.getSelection().toString()) input.focus();
+  });
+  input.focus();
+}
+
+/* ---------- boot sequence: the one piece of motion on the page ---------- */
+
+const BOOT = [
+  `<span class="host">ssh visitor@akshat</span>`,
+  ``,
+  `dhiman.sh — Portfolio OS [Version 1.0.0]`,
+  `<span class="name">${esc(DATA.name)}</span> · ${esc(DATA.tagline)}`,
+  ``,
+  `Type <span style="color:var(--steel)">help</span> to list commands.`
+];
+
+const boot = document.getElementById("boot");
+const reduced = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+if(reduced){
+  boot.innerHTML = BOOT.map(l => `<div>${l || "&nbsp;"}</div>`).join("");
+} else {
+  let i = 0;
+  (function line(){
+    if(i >= BOOT.length) return;
+    const d = document.createElement("div");
+    boot.appendChild(d);
+    const text = BOOT[i];
+    if(!text){ d.innerHTML = "&nbsp;"; i++; return setTimeout(line, 60); }
+    // reveal by character, keeping any inline markup intact
+    let n = 0;
+    const plain = text.replace(/<[^>]+>/g, "");
+    (function char(){
+      n++;
+      d.textContent = plain.slice(0, n);
+      if(n < plain.length) return setTimeout(char, 11);
+      d.innerHTML = text;          // swap in the coloured version at the end
+      i++; setTimeout(line, 90);
+    })();
+  })();
+}
+
+/* ==========================================================
+   4. Plain-page view — same content, no typing required.
+   ========================================================== */
+
+document.getElementById("page").innerHTML = `
+  <button class="back" id="toTerm">Back to the terminal</button>
+  <h1>${esc(DATA.name)}</h1>
+  <p class="sub">${esc(DATA.role)} · ${esc(DATA.tagline)}</p>
+
+  <section><h2>About</h2>${DATA.about.map(p=>`<p>${esc(p)}</p>`).join("")}</section>
+
+  <section><h2>Experience</h2>${DATA.experience.map(j=>`
+    <div class="job">
+      <p><strong>${esc(j.company)}</strong> — ${esc(j.role)} <span style="color:var(--dim)">(${esc(j.when)})</span></p>
+      <ul>${j.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+    </div>`).join("")}</section>
+
+  <section><h2>Projects</h2>${DATA.projects.map(p=>`
+    <div class="proj">
+      <p><strong>${esc(p.name)}</strong> <span style="color:var(--dim)">— ${esc(p.stack)}</span></p>
+      <p>${esc(p.blurb)}</p>
+      <p><a href="${esc(p.link.href)}" target="_blank" rel="noopener">${esc(p.link.label)}</a></p>
+    </div>`).join("")}</section>
+
+  <section><h2>Publications</h2><ul>${DATA.publications.map(p=>
+    `<li><a href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.title)}</a> <span style="color:var(--dim)">— ${esc(p.venue)}</span></li>`
+  ).join("")}</ul></section>
+
+  <section><h2>Skills</h2><ul>${Object.entries(DATA.skills).map(([k,v])=>
+    `<li><strong>${esc(k)}</strong> — ${esc(v)}</li>`).join("")}</ul></section>
+
+  <section><h2>Contact</h2><ul>${DATA.contact.map(c=>
+    `<li>${esc(c.label)} — <a href="${esc(c.href)}" target="_blank" rel="noopener">${esc(c.value)}</a></li>`
+  ).join("")}</ul></section>
+`;
+
+document.getElementById("toPage").addEventListener("click", () => {
+  document.body.classList.add("plainview");
+  window.scrollTo(0,0);
+});
+document.getElementById("toTerm").addEventListener("click", () => {
+  document.body.classList.remove("plainview");
+  if(window.matchMedia("(min-width:641px)").matches) input.focus();
+});
+</script>
 </body>
 </html>
