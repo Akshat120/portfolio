@@ -16,3 +16,11 @@ python3 src/build.py
 ```
 
 That inlines the map from `src/map.json` into `index.html`.
+
+To regenerate the link-preview image (`img/og.png`, needs Google Chrome):
+
+```bash
+python3 src/og.py
+```
+
+When the page changes, update `<lastmod>` in `sitemap.xml`.
